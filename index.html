@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Longlife Medical Shop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0; padding: 0;
+    }
+    header {
+      background: #1976d2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header nav a {
+      color: white;
+      margin: 0 12px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    header input#searchBar {
+      margin-top: 10px;
+      padding: 8px;
+      width: 250px;
+      border-radius: 4px;
+      border: none;
+    }
+    main, section {
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .card {
+      background: white;
+      padding: 15px;
+      margin: 15px;
+      border-radius: 5px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+      width: 220px;
+      text-align: center;
+      overflow: hidden;
+    }
+    .card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 12px;
+    }
+    .card button {
+      background: #1976d2;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .card button:hover {
+      background: #0d47a1;
+    }
+    .form-container {
+      max-width: 400px;
+      background: white;
+      margin: 50px auto;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    .form-container input, 
+    .form-container select, 
+    .form-container button {
+      width: 90%;
+      padding: 10px;
+      margin: 10px auto;
+      display: block;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    .form-container button {
+      background: #1976d2;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .form-container button:hover {
+      background: #0d47a1;
+    }
+    nav a.active {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Longlife Medical Shop</h1>
+  <p>Your Health, Our Priority</p>
+  <nav>
+    <a href="#" id="nav-home" class="active">Home</a>
+    <a href="#" id="nav-products">Products</a>
+    <a href="#" id="nav-cart">Cart 🛒</a>
+    <a href="#" id="nav-payment">Payment</a>
+    <a href="#" id="nav-login">Login</a>
+    <a href="#" id="nav-register">Register</a>
+  </nav>
+  <input type="text" id="searchBar" placeholder="Search medicine..." />
+</header>
+
+<main>
+  <!-- Views will be displayed here -->
+</main>
+
+<script>
+  // Product Data
+  const products = [
+    { name: "Paracetamol 500mg", price: "₹20", image: "https://i.postimg.cc/DwmPrC44/paracetamol-tablets-500-mg.jpg" },
+    { name: "Vitamin C Tablets", price: "₹150", image: "https://i.postimg.cc/d1MMPZcn/100mg-Vitamin-C-Chewable-Tablet-with-GMP.avif" },
+    { name: "Cough Syrup", price: "₹80", image: "https://i.postimg.cc/SR3CD4MX/81-TTd0-X7x-OL-AC-SL1500.jpg" },
+    { name: "Hand Sanitizer", price: "₹60", image: "https://i.postimg.cc/4xbHhVBH/OIP.webp" },
+    { name: "Face Mask", price: "₹10", image: "https://i.postimg.cc/XY7CMxfN/OIP.jpg" },
+
+    { name: "Ibuprofen 400mg", price: "₹25", image: "https://i.postimg.cc/9fyb0Jk3/OIP-1.webp" },
+    { name: "Antacid Tablets", price: "₹40", image: "https://i.postimg.cc/WpdnJNC6/1011091460.jpg" },
+    { name: "Aspirin 75mg", price: "₹30", image: "https://i.postimg.cc/FznFSb6m/OIP-3.webp" },
+    { name: "Vitamin D3 Capsules", price: "₹120", image: "https://i.postimg.cc/YqKM59wd/618g-ZQrs-6-L-AC-SL1500.jpg" },
+    { name: "Calcium Tablets", price: "₹100", image: "https://i.postimg.cc/HkNSNrqx/naturemade-calcium-600-mg-with-vitamin-d3-614a751114bb4c298ecd897c60ca182f.jpg" },
+
+    { name: "Antibiotic Cream", price: "₹90", image: "https://i.postimg.cc/N0YyBDqP/spin-prod-ec-800877201.jpg" },
+    { name: "Eye Drops", price: "₹150", image: "https://i.postimg.cc/hvJvp3Th/1399f19a-e285-4013-9658-21b44b52c4da-efdf6d3d113ff89a43337a3b7172357a.webp" },
+    { name: "Nasal Spray", price: "₹85", image: "https://i.postimg.cc/SKTzd93T/81u-Nfo3-SLJL.jpg" },
+    { name: "Cold Tablets", price: "₹50", image: "https://i.postimg.cc/KcrmybvF/1.jpg" },
+    { name: "Diabetes Glucometer", price: "₹1200", image: "https://i.postimg.cc/x8dx7L1X/71s-QUXlii9-L.jpg" },
+
+    { name: "Multivitamin Syrup", price: "₹200", image: "https://i.postimg.cc/KcsJjkY5/R.png" },
+    { name: "Antihistamine Tablets", price: "₹75", image: "https://i.postimg.cc/vmzvsDjf/generic-image-of-antihistamine-tablets-used-in-allergy-relief-chlorphenamine-BWH0-RJ.jpg" },
+    { name: "Pain Relief Gel", price: "₹110", image: "https://i.postimg.cc/02RZ7gp6/71-JU74-Tv3-WL-AC-SL1500.jpg" },
+    { name: "Digestive Enzymes", price: "₹180", image: "https://i.postimg.cc/2S5WZTXb/OIP-4.webp" },
+    { name: "Blood Pressure Monitor", price: "₹2500", image: "https://i.postimg.cc/nMbdLg1D/OIP-5.webp" },
+
+    { name: "Vitamin B12 Injection", price: "₹350", image: "https://i.postimg.cc/mrDKKxpL/10-Benefits-of-Vitamin-B12-Injections.webp" },
+    { name: "Thermometer", price: "₹500", image: "https://i.postimg.cc/W3mmnzmh/15-691-000-main-01.avif" },
+    { name: "Anti-Fungal Cream", price: "₹130", image: "https://i.postimg.cc/kXRG3ZZy/1231-53183.jpg" },
+    { name: "Hair Growth Oil", price: "₹300", image: "https://i.postimg.cc/FsXzvG45/e12094c3-c20f-47ff-ac45-0341a21edec0-c2dca0012b81de19406e0c9f96886001.webp" },
+    { name: "Oral Rehydration Salt", price: "₹15", image: "https://i.postimg.cc/WznQQ2V4/Template-cs-cart-9.webp" },
+
+    // Additional 20 medicines
+    { name: "Loperamide Capsules", price: "₹45", image: "https://i.postimg.cc/mkycc6xn/OIP-6.webp" },
+    { name: "Metformin Tablets", price: "₹90", image: "https://i.postimg.cc/3w23J0QS/metformin-tablets-bp-500-mg.jpg" },
+    { name: "Amoxicillin Capsules", price: "₹150", image: "https://i.postimg.cc/j5mVHsTw/Amoxicillin-500mg-caps-21s-3-copy-Copy.jpg" },
+    { name: "Cetirizine Tablets", price: "₹60", image: "https://i.postimg.cc/pLX0LwNg/OIP-7.webp" },
+    { name: "Omeprazole Capsules", price: "₹100", image: "https://i.postimg.cc/k5SWJs50/Gastrointestinal-Drug-Omeprazole-Enteric-Capsule-20mg-Shinepharm.avif" },
+    { name: "Salbutamol Inhaler", price: "₹200", image: "https://i.postimg.cc/wTPt1Nng/aes010-1.webp" },
+    { name: "Chlorpheniramine Syrup", price: "₹75", image: "https://i.postimg.cc/63mKMrrQ/ce20e581cc3f50adca9e0624e9f28116.jpg" },
+    { name: "Doxycycline Capsules", price: "₹160", image: "https://i.postimg.cc/zBszJwVc/OIP-8.webp" },
+    { name: "Fluconazole Tablets", price: "₹140", image: "https://i.postimg.cc/2Skz8SSr/Flucolab-200-Mg.webp" },
+    { name: "Diclofenac Gel", price: "₹120", image: "https://i.postimg.cc/133Q17vz/Voltaren-Gel-Emulgel-Diclofenac-1.jpg" },
+    { name: "Ranitidine Tablets", price: "₹80", image: "https://i.postimg.cc/HkytndZv/Ranitidine-Tablets-150mg-Taj-Pharma.webp" },
+    { name: "Prednisolone Tablets", price: "₹130", image: "https://i.postimg.cc/W3FZW7BW/105781.webp" },
+    { name: "Hydrocortisone Cream", price: "₹110", image: "https://i.postimg.cc/WzYQNTWb/OIP-9.webp" },
+    { name: "Magnesium Sulfate Injection", price: "₹400", image: "https://i.postimg.cc/LX1TYR88/662-4.jpg" },
+    { name: "Zinc Supplements", price: "₹90", image: "https://i.postimg.cc/d0B75xNj/OIP-10.webp" },
+    { name: "Saline Nasal Drops", price: "₹50", image: "https://i.postimg.cc/pdT91ZNN/Padagis-Saline-Nasal-Moisturizing-Spray-Relieves-Allergy-1-5oz-5-Pack-f5cc3495-4016-417c-9d4a-eaa3ca.webp" },
+    { name: "Iron Tablets", price: "₹75", image: "https://i.postimg.cc/267Pb466/d786621c-b865-4707-a199-afe3dd79bbdf-1-314d0c028521322c5e09188733e2e709.webp" },
+    { name: "Vitamin E Capsules", price: "₹150", image: "https://i.postimg.cc/7YFm45HQ/61cx7rywsu-L-SL1280.jpg" },
+    { name: "Bacitracin Ointment", price: "₹100", image: "https://i.postimg.cc/T3c7cRx7/900.avif" },
+    { name: "Levocetirizine Tablets", price: "₹70", image: "https://i.postimg.cc/L5TYb0sp/simple-online-pharmacy-levocetirizine-1614433460-Levocetirizine-1.jpg" },
+  ];
+
+  // Elements
+  const main = document.querySelector("main");
+  const searchBar = document.getElementById("searchBar");
+  const navLinks = document.querySelectorAll("nav a");
+
+  // State
+  let currentView = "home";
+
+  // Helper: Switch active nav link
+  function setActiveNav(id) {
+    navLinks.forEach(link => link.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+  }
+
+  // Render Views
+
+  // Home view - show products with search
+  function renderHome() {
+    setActiveNav("nav-home");
+    searchBar.style.display = "inline-block";
+    main.innerHTML = `<section id="productList"></section>`;
+    displayProducts(products);
+  }
+
+  // Display products list, with add to cart
+  function displayProducts(list) {
+    const container = document.getElementById("productList");
+    container.innerHTML = "";
+    list.forEach((product, index) => {
+      container.innerHTML += `
+        <div class="card">
+          <img src="${product.image}" alt="${product.name}" />
+          <h3>${product.name}</h3>
+          <p>Price: ${product.price}</p>
+          <button onclick="addToCart(${index})">Add to Cart</button>
+        </div>
+      `;
+    });
+  }
+
+  // Add product to cart (localStorage)
+  function addToCart(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(products[index]);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert("Item added to cart!");
+  }
+
+  // Products view (similar to home)
+  function renderProducts() {
+    setActiveNav("nav-products");
+    searchBar.style.display = "none";
+    main.innerHTML = `<section id="productList"></section>`;
+    displayProducts(products);
+  }
+
+  // Cart view
+  function renderCart() {
+    setActiveNav("nav-cart");
+    searchBar.style.display = "none";
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (cart.length === 0) {
+      main.innerHTML = `<h2 style="text-align:center; margin-top:30px;">Your cart is empty.</h2>`;
+      return;
+    }
+    let total = cart.reduce((sum, item) => sum + parseInt(item.price.replace("₹", "")), 0);
+    let html = `<section>`;
+    cart.forEach((item, index) => {
+      html += `
+        <div class="card">
+          <img src="${item.image}" alt="${item.name}" />
+          <h3>${item.name}</h3>
+          <p>Price: ${item.price}</p>
+          <button onclick="removeFromCart(${index})">Remove</button>
+        </div>
+      `;
+    });
+    html += `</section>`;
+    html += `<div style="text-align:center; margin:20px;">
+      <h3>Total: ₹${total}</h3>
+      <button onclick="alert('Proceeding to payment...')">Checkout</button>
+    </div>`;
+    main.innerHTML = html;
+  }
+
+  function removeFromCart(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    renderCart();
+  }
+
+  // Payment view - simple form
+  function renderPayment() {
+    setActiveNav("nav-payment");
+    searchBar.style.display = "none";
+    main.innerHTML = `
+      <div class="form-container">
+        <h2>Payment</h2>
+        <input type="text" id="name" placeholder="Full Name" required />
+        <input type="text" id="card" placeholder="Card Number" maxlength="16" required />
+        <input type="text" id="expiry" placeholder="Expiry MM/YY" maxlength="5" required />
+        <input type="text" id="cvv" placeholder="CVV" maxlength="3" required />
+        <button onclick="processPayment()">Pay Now</button>
+      </div>
+    `;
+  }
+
+  function processPayment() {
+    const name = document.getElementById("name").value.trim();
+    const card = document.getElementById("card").value.trim();
+    const expiry = document.getElementById("expiry").value.trim();
+    const cvv = document.getElementById("cvv").value.trim();
+
+    if (!name || !card || !expiry || !cvv) {
+      alert("Please fill all payment details!");
+      return;
+    }
+    alert(`Payment successful! Thank you, ${name}.`);
+    localStorage.removeItem("cart");
+    renderHome();
+  }
+
+  // Login view
+  function renderLogin() {
+    setActiveNav("nav-login");
+    searchBar.style.display = "none";
+    main.innerHTML = `
+      <div class="form-container">
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email" required />
+        <input type="password" id="loginPassword" placeholder="Password" required />
+        <button onclick="loginUser()">Login</button>
+      </div>
+    `;
+  }
+
+  // Register view
+  function renderRegister() {
+    setActiveNav("nav-register");
+    searchBar.style.display = "none";
+    main.innerHTML = `
+      <div class="form-container">
+        <h2>Register</h2>
+        <input type="text" id="regName" placeholder="Full Name" required />
+        <input type="email" id="regEmail" placeholder="Email" required />
+        <input type="password" id="regPassword" placeholder="Password" required />
+        <button onclick="registerUser()">Register</button>
+      </div>
+    `;
+  }
+
+  // Simple user storage (localStorage)
+  function registerUser() {
+    const name = document.getElementById("regName").value.trim();
+    const email = document.getElementById("regEmail").value.trim();
+    const password = document.getElementById("regPassword").value.trim();
+
+    if (!name || !email || !password) {
+      alert("Please fill all registration fields!");
+      return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    if(users.find(u => u.email === email)) {
+      alert("Email already registered!");
+      return;
+    }
+    users.push({ name, email, password });
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("Registration successful! You can now login.");
+    renderLogin();
+  }
+
+  function loginUser() {
+    const email = document.getElementById("loginEmail").value.trim();
+    const password = document.getElementById("loginPassword").value.trim();
+
+    if (!email || !password) {
+      alert("Please enter email and password!");
+      return;
+    }
+
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find(u => u.email === email && u.password === password);
+    if(user) {
+      alert(`Welcome back, ${user.name}!`);
+      renderHome();
+    } else {
+      alert("Invalid email or password.");
+    }
+  }
+
+  // Search filter for home page
+  searchBar.addEventListener("input", e => {
+    const query = e.target.value.toLowerCase();
+    const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+    displayProducts(filtered);
+  });
+
+  // Navigation handlers
+  document.getElementById("nav-home").addEventListener("click", e => { e.preventDefault(); renderHome(); });
+  document.getElementById("nav-products").addEventListener("click", e => { e.preventDefault(); renderProducts(); });
+  document.getElementById("nav-cart").addEventListener("click", e => { e.preventDefault(); renderCart(); });
+  document.getElementById("nav-payment").addEventListener("click", e => { e.preventDefault(); renderPayment(); });
+  document.getElementById("nav-login").addEventListener("click", e => { e.preventDefault(); renderLogin(); });
+  document.getElementById("nav-register").addEventListener("click", e => { e.preventDefault(); renderRegister(); });
+
+  // Initialize with home view
+  renderHome();
+ 
+</script>
+
+</body>
+</html>
